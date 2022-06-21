@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<title>Home</title>
+<h1>Home Page</h1>
+
+<div>
+    {% for room in rooms %}
+    <div>
+        <span>@{{room.host.username}}</span>
+        <!--<h2>{{ room.id }} -- <a href="/room/{{room.id}}">{{ room.name }}</a></h2>
+         we can write in both ways in href but other one is dynamic so that
+         we dont need to change it everywhere if we make any changes in url name -->
+        <h2>{{ room.id }} --> <a href="{% url 'room' room.id  %}">{{ room.name }}</a></h2>
+
+        <big>{{room.topic.name}}</big>
+    </div>
+
+    {% endfor %}
+</div>
+
+
+{% endblock content %}
