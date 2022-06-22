@@ -5,9 +5,37 @@
 <title>Home</title>
 <h1>Home Page</h1>
 
-<div>
-    {% for room in rooms %}
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+    }
+</style>
+
+<div class="home-container">
     <div>
+        <h3>Browse topics</h3>
+        <hr>
+          <div>
+                <a href="{% url 'home' %}">All Listed Topics</a>
+            </div>
+
+        {% for topic in topics %}
+            <div>
+                <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
+            </div>
+
+        {% endfor %}
+    </div>
+        <div>
+    <h6>{{room_count}} rooms available </h6>
+    <a href="{% url 'create_room' %}">Create Room</a>
+        <div>
+            {% for room in rooms %}
+            <div>
+        <a href="{% url 'update_room' room.id  %}">Edit</a>
+        <a href="{% url 'delete_room' room.id  %}">Delete</a>
+
         <span>@{{room.host.username}}</span>
         <!--<h2>{{ room.id }} -- <a href="/room/{{room.id}}">{{ room.name }}</a></h2>
          we can write in both ways in href but other one is dynamic so that
@@ -15,10 +43,13 @@
         <h2>{{ room.id }} --> <a href="{% url 'room' room.id  %}">{{ room.name }}</a></h2>
 
         <big>{{room.topic.name}}</big>
-    </div>
+         <hr>
+
+            </div>
 
     {% endfor %}
-</div>
+    </div>
 
+    </div>
+    {% endblock content %}
 
-{% endblock content %}
